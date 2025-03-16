@@ -13,7 +13,8 @@
                             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                         </h5>
                         <p class="card-text">{{ post.description }}</p>
-                        <small>Добавил {{ post.author.username }}, {{ post.create }}</small>
+                        <small>Добавил {{ post.author.username }}, {{ post.create }},</small>
+                        в категорию: <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a>
                     </div>
                 </div>
             </div>
