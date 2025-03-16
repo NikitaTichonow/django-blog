@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "mptt",
+    'bootstrap5',
     "django_mptt_admin",
     "django.contrib.admin",
     "django.contrib.auth",

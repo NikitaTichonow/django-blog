@@ -8,8 +8,12 @@ class CategoryAdmin(DjangoMpttAdmin):
     """
     Админ-панель модели категорий
     """
-
     prepopulated_fields = {"slug": ("title",)}
 
 
-admin.site.register(Post)
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    """
+    Админ-панель модели записей
+    """
+    prepopulated_fields = {'slug': ('title',)}
