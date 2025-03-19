@@ -7,13 +7,14 @@ from rest_framework import filters
 from apps.blog.models import Post
 from .serializers import PostSerializer
 
+
 # Создание представлений с помощью миксинов
 class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter] 
-    filterset_fields = ['author']
-    search_fields = ['title']
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["author"]
+    search_fields = ["title"]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
