@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.blog.apps.BlogConfig",
     "apps.accounts",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
 ]
 
 MIDDLEWARE = [
