@@ -9,7 +9,7 @@ class PostCreateForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'slug', 'category', 'description', 'text', 'thumbnail', 'status')
+        fields = ("title", "slug", "category", "description", "text", "thumbnail", "status")
 
     def __init__(self, *args, **kwargs):
         """
@@ -17,7 +17,18 @@ class PostCreateForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control',
-                'autocomplete': 'off'
-            })
+            self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
+
+
+class PostUpdateForm(PostCreateForm):
+    """
+    Форма обновления статьи на сайте
+    """
+
+    class Meta:
+        model = Post
+        fields = PostCreateForm.Meta.fields + ("updater", "fixed")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["fixed"].widget.attrs.update({"class": "form-check-input"})
