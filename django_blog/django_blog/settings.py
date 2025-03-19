@@ -50,7 +50,40 @@ INSTALLED_APPS = [
     "apps.accounts",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+    "rest_framework",
+    "apps.django_blog_api",
+    'drf_spectacular',
+    'django_filters',
 ]
+
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', 
+
+    'PAGE_SIZE': 1,
+}
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Django_Blog API",
+    "DESCRIPTION": "A sample blog to learn about DRF",
+    "VERSION": "1.0.0",
+    # OTHER SETTINGS
+}
+
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
