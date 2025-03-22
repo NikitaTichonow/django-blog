@@ -17,6 +17,7 @@ urlpatterns = [
     path("", include("apps.blog.urls")),
     path("", include("apps.accounts.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
 ]
 
 if settings.DEBUG:

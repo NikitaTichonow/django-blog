@@ -56,8 +56,22 @@ INSTALLED_APPS = [
     "django_filters",
     "taggit",
     "django_recaptcha",
+    "ckeditor_uploader",
+    "ckeditor",
 ]
 
+RECAPTCHA_PUBLIC_KEY = "6LdR5PwqAAAAAP2Li5RB9X_Y-5SJogPYSmwQQFay"
+RECAPTCHA_PRIVATE_KEY = "6LdR5PwqAAAAAO7NoLFk-mbhT5YGrngWT7vzrCyB"
+
+STATIC_ROOT = BASE_DIR / "static/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",
+        "height": 300,
+    },
+}
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
@@ -181,5 +195,3 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 
-RECAPTCHA_PUBLIC_KEY = '6LeH2fwqAAAAAEJ3es_unFWQc4D48t3MHTxiRmUO'
-RECAPTCHA_PRIVATE_KEY = '6LeH2fwqAAAAAMS5ldn5sBeMgwdeESvXcCXCVmPp'
