@@ -4,6 +4,11 @@ from .forms import PostCreateForm, PostUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
+from django.http import JsonResponse
+from django.shortcuts import redirect
+from .forms import CommentCreateForm
+from .models import Comment
+
 from ..services.mixins import AuthorRequiredMixin
 
 
@@ -28,6 +33,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = self.object.title
+        context["form"] = CommentCreateForm
         return context
 
 
@@ -93,3 +99,43 @@ class PostFromCategory(ListView):
         context = super().get_context_data(**kwargs)
         context["title"] = f"Записи из категории: {self.category.title}"
         return context
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentCreateForm
+
+    def is_ajax(self):
+        return self.request.headers.get("X-Requested-With") == "XMLHttpRequest"
+
+    def form_invalid(self, form):
+        if self.is_ajax():
+            return JsonResponse({"error": form.errors}, status=400)
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.post_id = self.kwargs.get("pk")
+        comment.author = self.request.user
+        comment.parent_id = form.cleaned_data.get("parent")
+        comment.save()
+
+        if self.is_ajax():
+            return JsonResponse(
+                {
+                    "is_child": comment.is_child_node(),
+                    "id": comment.id,
+                    "author": comment.author.username,
+                    "parent_id": comment.parent_id,
+                    "time_create": comment.time_create.strftime("%Y-%b-%d %H:%M:%S"),
+                    "avatar": comment.author.profile.avatar.url,
+                    "content": comment.content,
+                    "get_absolute_url": comment.author.profile.get_absolute_url(),
+                },
+                status=200,
+            )
+
+        return redirect(comment.post.get_absolute_url())
+
+    def handle_no_permission(self):
+        return JsonResponse({"error": "Необходимо авторизоваться для добавления комментариев"}, status=400)

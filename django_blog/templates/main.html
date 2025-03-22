@@ -1,5 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>Блог 2.0</title>
@@ -7,7 +9,9 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 </head>
+
 <body>
+
     <body class="d-flex flex-column min-vh-100">
         {% include 'header.html' %}
         <div class="container">
@@ -24,5 +28,8 @@
             </div>
         </div>
         {% include 'footer.html' %}
-</body>
+        <script src="{% static 'backend.js' %}"></script>
+        {% block script %}{% endblock %}
+    </body>
+
 </html

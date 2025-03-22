@@ -78,6 +78,7 @@ class UserRegisterForm(UserCreationForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
 
+
 class UserLoginForm(AuthenticationForm):
     """
     Форма авторизации на сайте
@@ -88,11 +89,8 @@ class UserLoginForm(AuthenticationForm):
         Обновление стилей формы авторизации
         """
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['placeholder'] = 'Логин пользователя'
-        self.fields['password'].widget.attrs['placeholder'] = 'Пароль пользователя'
-        self.fields['username'].label = 'Логин'
+        self.fields["username"].widget.attrs["placeholder"] = "Логин пользователя"
+        self.fields["password"].widget.attrs["placeholder"] = "Пароль пользователя"
+        self.fields["username"].label = "Логин"
         for field in self.fields:
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control',
-                'autocomplete': 'off'
-            })
+            self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
