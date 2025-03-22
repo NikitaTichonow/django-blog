@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from apps.services.utils import unique_slugify
+from taggit.managers import TaggableManager
 
 
 class Category(MPTTModel):
@@ -98,6 +99,7 @@ class Post(models.Model):
     fixed = models.BooleanField(verbose_name="Прикреплено", default=False)
     objects = models.Manager()
     custom = PostManager()
+    tags = TaggableManager()
 
     class Meta:
         db_table = "blog_post"
@@ -165,3 +167,4 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return f"{self.author}:{self.content}"
+

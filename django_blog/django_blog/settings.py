@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "apps.django_blog_api",
     "drf_spectacular",
     "django_filters",
+    'taggit',
 ]
 
 
