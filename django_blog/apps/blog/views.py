@@ -143,20 +143,19 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return JsonResponse({"error": "Необходимо авторизоваться для добавления комментариев"}, status=400)
 
 
-
 class PostByTagListView(ListView):
     model = Post
-    template_name = 'blog/post_list.html'
-    context_object_name = 'posts'
+    template_name = "blog/post_list.html"
+    context_object_name = "posts"
     paginate_by = 10
     tag = None
 
     def get_queryset(self):
-        self.tag = Tag.objects.get(slug=self.kwargs['tag'])
+        self.tag = Tag.objects.get(slug=self.kwargs["tag"])
         queryset = Post.objects.filter(tags__slug=self.tag.slug)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = f'Статьи по тегу: {self.tag.name}'
+        context["title"] = f"Статьи по тегу: {self.tag.name}"
         return context
