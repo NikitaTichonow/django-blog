@@ -28,6 +28,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
+            "password",
             "is_staff",
             "is_active",
             "date_joined",

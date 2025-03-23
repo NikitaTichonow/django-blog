@@ -27,6 +27,12 @@ class ProfileList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gener
         return self.create(request, *args, **kwargs)
 
 
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = (permissions.IsAdminUser,)
+
+
 class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
@@ -42,10 +48,7 @@ class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
         return self.create(request, *args, **kwargs)
 
 
-class PostDetail(
-    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView
-):
-    permission_classes = (IsAuthorOrReadOnly,)
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAdminUser,)
