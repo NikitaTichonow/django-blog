@@ -7,6 +7,7 @@ from .views import (
     PostUpdateView,
     CommentCreateView,
     PostByTagListView,
+    RatingCreateView,
 )
 
 urlpatterns = [
@@ -17,4 +18,5 @@ urlpatterns = [
     path("category/<str:slug>/", PostFromCategory.as_view(), name="post_by_category"),
     path("post/<int:pk>/comments/create/", CommentCreateView.as_view(), name="comment_create_view"),
     path("post/tags/<str:tag>/", PostByTagListView.as_view(), name="post_by_tags"),
+    path("rating/", RatingCreateView.as_view(), name="rating"),
 ]

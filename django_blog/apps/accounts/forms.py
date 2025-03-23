@@ -91,14 +91,15 @@ class UserLoginForm(AuthenticationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'recaptcha']
+        fields = ["username", "password", "recaptcha"]
+
     def __init__(self, *args, **kwargs):
         """
         Обновление стилей формы регистрации
         """
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['placeholder'] = 'Логин пользователя'
-        self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['password'].widget.attrs['placeholder'] = 'Пароль пользователя'
-        self.fields['password'].widget.attrs['class'] = 'form-control'
-        self.fields['username'].label = 'Логин'
+        self.fields["username"].widget.attrs["placeholder"] = "Логин пользователя"
+        self.fields["username"].widget.attrs["class"] = "form-control"
+        self.fields["password"].widget.attrs["placeholder"] = "Пароль пользователя"
+        self.fields["password"].widget.attrs["class"] = "form-control"
+        self.fields["username"].label = "Логин"
