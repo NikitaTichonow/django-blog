@@ -7,9 +7,12 @@ from rest_framework import filters
 from apps.blog.models import Post
 from .serializers import PostSerializer
 
+from .permissions import IsAuthorOrReadOnly
+
 
 # Создание представлений с помощью миксинов
 class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
@@ -26,6 +29,7 @@ class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
 class PostDetail(
     mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView
 ):
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAdminUser,)
