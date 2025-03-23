@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-aw!iix!ro5_5f2hskds=lr^0$2h1k6yxs3^+*0hycqrffjm9gf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 SITE_ID = 1
 
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "rest_framework",
     "apps.django_blog_api",
-    'rest_framework.authtoken',
+    "rest_framework.authtoken",
     "drf_spectacular",
     "django_filters",
     "taggit",
@@ -93,7 +93,7 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 1,
+    "PAGE_SIZE": 10,
 }
 
 

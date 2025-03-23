@@ -7,7 +7,6 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
         if request.user.is_authenticated:
             return True
         return False
-    
 
     def has_object_permission(self, request, view, obj):
         # Разрешение на чтение разрешено для любого запроса, поэтому мы всегда будем
@@ -16,4 +15,3 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
             return True
         # Права на запись разрешены только автору сообщения или администратору
         return obj.author == request.user or request.user.is_staff
-        
