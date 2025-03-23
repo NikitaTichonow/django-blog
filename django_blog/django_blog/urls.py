@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
 from apps.blog.sitemaps import PostSitemap
+from apps.blog.feeds import LatestPostFeed
 
 
 sitemaps = {
@@ -18,6 +19,7 @@ urlpatterns = [
     path("", include("apps.accounts.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("ckeditor/", include("ckeditor_uploader.urls")),
+    path('feeds/latest/', LatestPostFeed(), name='latest_post_feed'),
 ]
 
 if settings.DEBUG:
