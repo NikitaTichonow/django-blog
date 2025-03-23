@@ -1,8 +1,11 @@
+from datetime import timedelta
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 from apps.services.utils import unique_slugify
+from django.utils import timezone
+from django.core.cache import cache
 
 
 class Profile(models.Model):
@@ -17,6 +20,12 @@ class Profile(models.Model):
     )
     bio = models.TextField(max_length=500, blank=True, verbose_name="Информация о себе")
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
+
+    def is_online(self):
+        last_seen = cache.get(f"last-seen-{self.user.id}")
+        if last_seen is not None and timezone.now() < last_seen + timedelta(seconds=200):
+            return True
+        return False
 
     class Meta:
         """
