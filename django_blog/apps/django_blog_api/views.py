@@ -20,13 +20,12 @@ class ProfileList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gener
     serializer_class = ProfileSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
-
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-           return self.create(request, *args, **kwargs)
-   
+        return self.create(request, *args, **kwargs)
+
 
 class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
