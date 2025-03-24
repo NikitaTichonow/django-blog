@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "django_recaptcha",
     "ckeditor_uploader",
     "ckeditor",
+    'guardian',
 ]
 
 RECAPTCHA_PUBLIC_KEY = "6LdR5PwqAAAAAP2Li5RB9X_Y-5SJogPYSmwQQFay"
@@ -203,3 +204,8 @@ def show_toolbar(request):
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": show_toolbar,
 }
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # Этот бэкенд Django использует по умолчанию
+    'guardian.backends.ObjectPermissionBackend', # А это  бэкенд django_guardian
+)

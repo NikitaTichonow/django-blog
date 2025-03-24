@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from .models import Category, Post, Comment, Rating
+from guardian.admin import GuardedModelAdmin
 
 
 @admin.register(Category)
@@ -13,7 +14,7 @@ class CategoryAdmin(DjangoMpttAdmin):
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(GuardedModelAdmin):
     """
     Админ-панель модели записей
     """
