@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from .models import Post, Category, Comment, Rating
 from .forms import PostCreateForm, PostUpdateForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
 from django.http import JsonResponse
@@ -85,11 +85,12 @@ class PostDetailView(DetailView):
         return context
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Представление: создание материалов на сайте
     """
-
+    
+    permission_required = 'blog.add_post'
     model = Post
     template_name = "blog/post_create.html"
     form_class = PostCreateForm
