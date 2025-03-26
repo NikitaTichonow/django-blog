@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
 from apps.blog.sitemaps import PostSitemap
 from apps.blog.feeds import LatestPostFeed
+from django.conf.urls.i18n import i18n_patterns
 
 
 handler403 = "apps.blog.views.tr_handler403"
@@ -16,17 +17,27 @@ sitemaps = {
     "posts": PostSitemap,
 }
 
+"""
+Непереводимые стандартные шаблоны URL-адресов и шаблоны можно 
+комбинировать в рамках i18n_patterns, 
+чтобы некоторые шаблоны содержали языковой префикс, а другие – нет.
+"""
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('rosetta/', include('rosetta.urls')),
     path("api/", include("apps.django_blog_api.urls")),
     path("api-auth/", include("rest_framework.urls")),
-    path("", include("apps.blog.urls")),
-    path("", include("apps.accounts.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("feeds/latest/", LatestPostFeed(), name="latest_post_feed"),
 ]
+
+urlpatterns += i18n_patterns(
+    path("", include("apps.blog.urls")),
+    path("", include("apps.accounts.urls")),
+)
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

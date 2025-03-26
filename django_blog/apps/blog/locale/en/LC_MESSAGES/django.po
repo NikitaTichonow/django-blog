@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 20:23+0300\n"
+"POT-Creation-Date: 2025-03-26 21:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: .\apps\blog\models.py:17
 msgid "Category name "
 msgstr ""
@@ -27,4 +28,32 @@ msgstr ""
 
 #: .\apps\blog\models.py:19
 msgid "Description of the category"
+msgstr ""
+
+#: .\apps\blog\urls.py:18
+msgid "post/create/"
+msgstr ""
+
+#: .\apps\blog\urls.py:19
+msgid "post/<str:slug>/update/"
+msgstr ""
+
+#: .\apps\blog\urls.py:20
+msgid "post/<str:slug>/"
+msgstr ""
+
+#: .\apps\blog\urls.py:21
+msgid "category/<str:slug>/"
+msgstr ""
+
+#: .\apps\blog\urls.py:22
+msgid "post/<int:pk>/comments/create/"
+msgstr ""
+
+#: .\apps\blog\urls.py:23
+msgid "post/tags/<str:tag>/"
+msgstr ""
+
+#: .\apps\blog\urls.py:24
+msgid "rating/"
 msgstr ""

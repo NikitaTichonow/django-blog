@@ -89,8 +89,8 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Представление: создание материалов на сайте
     """
-    
-    permission_required = 'blog.add_post'
+
+    permission_required = "blog.add_post"
     model = Post
     template_name = "blog/post_create.html"
     form_class = PostCreateForm

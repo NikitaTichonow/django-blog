@@ -33,7 +33,6 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAdminUser,)
 
 
-
 class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Post.objects.all()

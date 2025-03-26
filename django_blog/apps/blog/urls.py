@@ -9,14 +9,17 @@ from .views import (
     PostByTagListView,
     RatingCreateView,
 )
+from django.utils.translation import gettext_lazy as _
+
+
 
 urlpatterns = [
     path("", PostListView.as_view(), name="home"),
-    path("post/create/", PostCreateView.as_view(), name="post_create"),
-    path("post/<str:slug>/update/", PostUpdateView.as_view(), name="post_update"),
-    path("post/<str:slug>/", PostDetailView.as_view(), name="post_detail"),
-    path("category/<str:slug>/", PostFromCategory.as_view(), name="post_by_category"),
-    path("post/<int:pk>/comments/create/", CommentCreateView.as_view(), name="comment_create_view"),
-    path("post/tags/<str:tag>/", PostByTagListView.as_view(), name="post_by_tags"),
-    path("rating/", RatingCreateView.as_view(), name="rating"),
+    path(_("post/create/"), PostCreateView.as_view(), name="post_create"),
+    path(_("post/<str:slug>/update/"), PostUpdateView.as_view(), name="post_update"),
+    path(_("post/<str:slug>/"), PostDetailView.as_view(), name="post_detail"),
+    path(_("category/<str:slug>/"), PostFromCategory.as_view(), name="post_by_category"),
+    path(_("post/<int:pk>/comments/create/"), CommentCreateView.as_view(), name="comment_create_view"),
+    path(_("post/tags/<str:tag>/"), PostByTagListView.as_view(), name="post_by_tags"),
+    path(_("rating/"), RatingCreateView.as_view(), name="rating"),
 ]

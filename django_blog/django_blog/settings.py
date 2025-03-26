@@ -60,8 +60,8 @@ INSTALLED_APPS = [
     "django_recaptcha",
     "ckeditor_uploader",
     "ckeditor",
-    'guardian',
-    'rosetta',
+    "guardian",
+    "rosetta",
 ]
 
 RECAPTCHA_PUBLIC_KEY = "6LdR5PwqAAAAAP2Li5RB9X_Y-5SJogPYSmwQQFay"
@@ -111,7 +111,7 @@ SPECTACULAR_SETTINGS = {
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'django.middleware.locale.LocaleMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -119,7 +119,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",  # Middleware django-debug-toolbar
     "apps.accounts.middleware.ActiveUserMiddleware",
-    
 ]
 
 ROOT_URLCONF = "django_blog.urls"
@@ -185,12 +184,12 @@ USE_I18N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('en', _('English')),
-    ('ru', _('Russian')),
+    ("en", _("English")),
+    ("ru", _("Russian")),
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',
+    BASE_DIR / "locale",
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -218,6 +217,6 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', # Этот бэкенд Django использует по умолчанию
-    'guardian.backends.ObjectPermissionBackend', # А это  бэкенд django_guardian
+    "django.contrib.auth.backends.ModelBackend",  # Этот бэкенд Django использует по умолчанию
+    "guardian.backends.ObjectPermissionBackend",  # А это  бэкенд django_guardian
 )
