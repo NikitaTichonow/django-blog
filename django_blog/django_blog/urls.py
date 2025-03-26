@@ -18,6 +18,7 @@ sitemaps = {
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('rosetta/', include('rosetta.urls')),
     path("api/", include("apps.django_blog_api.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("", include("apps.blog.urls")),

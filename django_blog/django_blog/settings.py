@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "ckeditor_uploader",
     "ckeditor",
     'guardian',
+    'rosetta',
 ]
 
 RECAPTCHA_PUBLIC_KEY = "6LdR5PwqAAAAAP2Li5RB9X_Y-5SJogPYSmwQQFay"
