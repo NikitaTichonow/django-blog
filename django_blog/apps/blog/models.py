@@ -6,6 +6,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from apps.services.utils import unique_slugify
 from taggit.managers import TaggableManager
 from ckeditor.fields import RichTextField
+from django.utils.translation import gettext_lazy as _
 
 
 class Category(MPTTModel):
@@ -13,9 +14,9 @@ class Category(MPTTModel):
     Модель категорий с вложенностью
     """
 
-    title = models.CharField(max_length=255, verbose_name="Название категории")
-    slug = models.SlugField(max_length=255, verbose_name="URL категории", blank=True)
-    description = models.TextField(verbose_name="Описание категории", max_length=300)
+    title = models.CharField(max_length=255, verbose_name=_("Category name "))
+    slug = models.SlugField(max_length=255, verbose_name=_("Category URL"), blank=True)
+    description = models.TextField(verbose_name=_("Description of the category"), max_length=300)
     parent = TreeForeignKey(
         "self",
         on_delete=models.CASCADE,
