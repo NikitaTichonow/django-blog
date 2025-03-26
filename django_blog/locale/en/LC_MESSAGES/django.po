@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 20:09+0300\n"
+"POT-Creation-Date: 2025-03-26 20:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: .\django_blog\settings.py:187
 msgid "English"
 msgstr ""
 
 #: .\django_blog\settings.py:188
 msgid "Russian"
+msgstr ""
+
+#: .\templates\header.html:5
+msgid "My Django Blog 2.0"
+msgstr ""
+
+#: .\templates\header.html:16
+msgid "My profile"
+msgstr ""
+
+#: .\templates\header.html:20
+msgid "Log out"
+msgstr ""
+
+#: .\templates\header.html:27
+msgid "Registration"
+msgstr ""
+
+#: .\templates\header.html:28
+msgid "Login"
 msgstr ""

@@ -1,6 +1,8 @@
+{% load i18n %}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/">My Django Blog 2.0</a>
+        <a class="navbar-brand" href="/">{% trans "My Django Blog 2.0" %}</a>
         </div>
 </nav>
 <div class='d-flex justify-content-end '>
@@ -9,21 +11,21 @@
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             {{ request.user }}
           </a>
-          <ul class="dropdown-menu text-small" style="">
+          <ul class="dropdown-menu text-small" style="/">
             <li><a class="dropdown-item" href="{% url 'post_create' %}">Добавить статью</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile_detail' request.user.profile.slug %}">Мой профиль</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile_detail' request.user.profile.slug %}">{% trans "My profile" %}</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>
                     <form action="{% url 'logout' %}" method="post">{% csrf_token %}
-                        <a href="#" class="dropdown-item" onclick="parentNode.submit();">Log Out</a>
+                        <a href="#" class="dropdown-item" onclick="parentNode.submit();">{% trans "Log out" %}</a>
                     </form>
             </li>
           </ul>
         </div>
         {% else %}
             <ul class="nav ">
-              <li><a href="{% url 'register' %}" class="nav-link px-2 link-secondary">Регистрация</a></li>
-              <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark">Вход</a></li>
+              <li><a href="{% url 'register' %}" class="nav-link px-2 link-secondary">{% trans "Registration" %}</a></li>
+              <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark">{% trans "Login" %}</a></li>
             </ul>
         {% endif %}
 </div>
