@@ -1,4 +1,7 @@
 {% load mptt_tags %}
+{% load i18n %}
+   
+
 
 <div class="card mb-4">
     <div class="card-header">Categories</div>
@@ -16,6 +19,18 @@
             {% if not node.is_leaf_node %}</ul>{% endif %}
             {% endrecursetree %}
         </ul>
+        <div class="col">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                {% if language.code == LANGUAGE_CODE %}
+                    <u>{{ language.name_local }}</u>
+                {% else %}
+                    <a href="/{{ language.code }}/">{{ language.name_local }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </div>
 <a href="{% url 'latest_post_feed' %}">Подписаться на RSS ленту</a>
