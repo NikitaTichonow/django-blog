@@ -12,7 +12,6 @@ from .views import (
 from django.utils.translation import gettext_lazy as _
 
 
-
 urlpatterns = [
     path("", PostListView.as_view(), name="home"),
     path(_("post/create/"), PostCreateView.as_view(), name="post_create"),
