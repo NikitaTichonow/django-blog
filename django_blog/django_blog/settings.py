@@ -18,6 +18,9 @@ from pathlib import Path
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-aw!iix!ro5_5f2hskds=lr^0$2h1k6yxs3^+*0hycqrffjm9gf"
+SECRET_KEY = str(os.getenv('SECRET_KEY_ENV'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -70,8 +73,8 @@ INSTALLED_APPS = [
     "rosetta",
 ]
 
-RECAPTCHA_PUBLIC_KEY = "6LdR5PwqAAAAAP2Li5RB9X_Y-5SJogPYSmwQQFay"
-RECAPTCHA_PRIVATE_KEY = "6LdR5PwqAAAAAO7NoLFk-mbhT5YGrngWT7vzrCyB"
+RECAPTCHA_PUBLIC_KEY = str(os.getenv('RECAPTCHA_PUBLIC_KEY_ENV'))
+RECAPTCHA_PRIVATE_KEY = str(os.getenv('RECAPTCHA_PRIVATE_KEY_ENV'))
 
 STATIC_ROOT = BASE_DIR / "static/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -226,6 +229,27 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",  # Этот бэкенд Django использует по умолчанию
     "guardian.backends.ObjectPermissionBackend",  # А это  бэкенд django_guardian
 )
+
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = str(os.getenv('EMAIL_HOST_ENV'))
+EMAIL_PORT = 465
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER_ENV'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD_ENV'))
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = str(os.getenv('DEFAULT_FROM_EMAIL_ENV'))
+SERVER_EMAIL = str(os.getenv('SERVER_EMAIL_ENV'))
+ADMINS = str(os.getenv('ADMINS_ENV'))
+EMAIL_SUBJECT_PREFIX = str(os.getenv('EMAIL_SUBJECT_PREFIX_ENV'))
 
 
 LOGGING = {
