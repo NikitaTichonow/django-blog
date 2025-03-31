@@ -81,10 +81,18 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 
 CKEDITOR_CONFIGS = {
     "default": {
-        "toolbar": "full",
-        "height": 300,
+        "toolbar": "full",  # Полная панель инструментов
+        "height": 300,      # Высота редактора
+        "width": "100%",     # Ширина редактора (можно установить в процентах)
+        "removePlugins": "elementspath",  # Удалить панель элементов
+        "extraPlugins": "autogrow",  # Дополнительные плагины
+        "autoGrow_minHeight": 300,    # Минимальная высота для автоподстройки
+        "autoGrow_maxHeight": 600,     # Максимальная высота для автоподстройки
+        "tabSpaces": 4,                # Количество пробелов для табуляции
+        "allowedContent": True,         # Разрешить весь контент (можно настроить под свои нужды)
     },
 }
+
 
 CACHES = {
     "default": {
