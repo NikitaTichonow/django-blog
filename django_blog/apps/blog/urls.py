@@ -8,6 +8,7 @@ from .views import (
     CommentCreateView,
     PostByTagListView,
     RatingCreateView,
+    PostDeleteView,
 )
 from django.utils.translation import gettext_lazy as _
 
@@ -16,6 +17,7 @@ urlpatterns = [
     path("", PostListView.as_view(), name="home"),
     path(_("post/create/"), PostCreateView.as_view(), name="post_create"),
     path(_("post/<str:slug>/update/"), PostUpdateView.as_view(), name="post_update"),
+    path(_('post/<str:slug>/delete/'), PostDeleteView.as_view(), name='post_confirm_delete'),
     path(_("post/<str:slug>/"), PostDetailView.as_view(), name="post_detail"),
     path(_("category/<str:slug>/"), PostFromCategory.as_view(), name="post_by_category"),
     path(_("post/<int:pk>/comments/create/"), CommentCreateView.as_view(), name="comment_create_view"),

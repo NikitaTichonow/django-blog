@@ -2,31 +2,38 @@
 
 {% block content %}
 {% load static %}
-    {% for post in posts %}
-        <div class="card mb-3">
-            <div class="row">
-                <div class="col-4">
-                    <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="{{ post.title }}">
-                </div>
-                <div class="col-8">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{{ post.get_absolute_url }}">{{ post.title|safe }}</a>
-                        </h5>
-                        <p class="card-text">{{ post.description|safe }}</p>
-                        <small>Добавил {{ post.author.username }}, {{ post.create }},</small>
-                        в категорию: <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a>
-                    </div>
-                </div>
-                <div class="rating-buttons">
-                    <button class="btn btn-sm btn-primary" data-post="{{ post.id }}" data-value="1">Лайк</button>
-                    <button class="btn btn-sm btn-secondary" data-post="{{ post.id }}" data-value="-1">Дизлайк
-                    </button>
-                    <button class="btn btn-sm btn-secondary rating-sum">{{ post.get_sum_rating }}</button>
-                </div>
+{% for post in posts %}
+<div class="card mb-3">
+    <div class="row">
+        <div class="col-4">
+            <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="{{ post.title }}">
+        </div>
+        <div class="col-8">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ post.get_absolute_url }}">{{ post.title|safe }}</a>
+                </h5>
+                <p class="card-text">{{ post.description|safe }}</p>
+                <small>Добавил {{ post.author.username }}, {{ post.create }},</small>
+                в категорию: <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a>
+                {% if user.is_authenticated and user == post.author %}
+                <a href="{% url 'post_update' post.slug %}" class="btn btn-warning">Обновить статью</a>
+                <form action="{% url 'post_confirm_delete' post.slug %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Удалить статью</button>
+                  </form>
+                {% endif %}
             </div>
         </div>
-    {% endfor %}
-    <script src="{% static 'ratings.js' %}"></script>
+        <div class="rating-buttons">
+            <button class="btn btn-sm btn-primary" data-post="{{ post.id }}" data-value="1">Лайк</button>
+            <button class="btn btn-sm btn-secondary" data-post="{{ post.id }}" data-value="-1">Дизлайк
+            </button>
+            <button class="btn btn-sm btn-secondary rating-sum">{{ post.get_sum_rating }}</button>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<script src="{% static 'ratings.js' %}"></script>
 {% block script %}{% endblock %}
 {% endblock %}

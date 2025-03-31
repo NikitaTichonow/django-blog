@@ -1,4 +1,5 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View, DeleteView
 from .models import Post, Category, Comment, Rating
 from .forms import PostCreateForm, PostUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -129,6 +130,21 @@ class PostUpdateView(AuthorRequiredMixin, SuccessMessageMixin, UpdateView):
         form.save()
         return super().form_valid(form)
 
+
+class PostDeleteView(AuthorRequiredMixin, SuccessMessageMixin, DeleteView):
+    """
+    Представление: удаления материала на сайте
+    """
+    
+    model = Post
+    template_name = "blog/post_confirm_delete.html"
+    context_object_name = 'post'
+    success_message = "Запись успешно удалена"
+    success_url = reverse_lazy('post_list')
+
+    def get_queryset(self):
+        # Ограничиваем доступ к удалению только автору поста
+        return self.model.objects.filter(author=self.request.user)
 
 class PostFromCategory(ListView):
     template_name = "blog/post_list.html"
