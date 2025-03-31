@@ -252,98 +252,93 @@ ADMINS = str(os.getenv('ADMINS_ENV'))
 EMAIL_SUBJECT_PREFIX = str(os.getenv('EMAIL_SUBJECT_PREFIX_ENV'))
 
 
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "formatters": {
-#         "console": {"format": "%(asctime)s - %(levelname)s - %(message)s"},
-#         "file_general": {"format": "%(asctime)s - %(levelname)s - %(module)s - %(message)s"},
-#         "file_errors": {
-#             "format": "%(asctime)s - %(levelname)s - %(message)s - %(pathname)s",
-#         },
-#         "file_security": {
-#             "format": "%(asctime)s - %(levelname)s - %(module)s - %(message)s",
-#         },
-#     },
-#     "filters": {
-#         "debug_only": {
-#             "()": "django.utils.log.CallbackFilter",
-#             "callback": lambda record: settings.DEBUG,
-#         },
-#         "production_only": {
-#             "()": "django.utils.log.CallbackFilter",
-#             "callback": lambda record: not settings.DEBUG,
-#         },
-#     },
-#     "handlers": {
-#         "console": {
-#             "level": "DEBUG",
-#             "class": "logging.StreamHandler",
-#             "formatter": "console",
-#             "filters": ["debug_only"],
-#         },
-#         "file_general": {
-#             "level": "INFO",
-#             "class": "logging.FileHandler",
-#             "filename": os.path.join(BASE_DIR, "logging/general.log"),
-#             "formatter": "file_general",
-#             "filters": ["production_only"],
-#         },
-#         "file_errors": {
-#             "level": "ERROR",
-#             "class": "logging.FileHandler",
-#             "filename": os.path.join(BASE_DIR, "logging/errors.log"),
-#             "formatter": "file_errors",
-#         },
-#         "file_security": {
-#             "level": "DEBUG",
-#             "class": "logging.FileHandler",
-#             "filename": os.path.join(BASE_DIR, "logging/security.log"),
-#             "formatter": "file_security",
-#         },
-#         "mail_admins": {
-#             "level": "ERROR",
-#             "class": "django.utils.log.AdminEmailHandler",
-#             "formatter": "file_errors",
-#             "filters": ["production_only"],
-#         },
-#     },
-#     "loggers": {
-#         # Основной логгер Django
-#         "django": {
-#             "handlers": ["console", "file_general", "file_errors", "file_security"],
-#             "level": "DEBUG",
-#             "propagate": True,
-#         },
-#         # Логгер для запросов
-#         "django.request": {
-#             "handlers": ["mail_admins", "file_errors"],
-#             "level": "ERROR",
-#             "propagate": False,
-#         },
-#         # Логгер для сервера
-#         "django.server": {
-#             "handlers": ["mail_admins", "file_errors"],
-#             "level": "ERROR",
-#             "propagate": False,
-#         },
-#         # Логгер для шаблонов
-#         "django.template": {
-#             "handlers": ["file_errors"],
-#             "level": "ERROR",
-#             "propagate": False,
-#         },
-#         # Логгер для базы данных
-#         "django.db.backends": {
-#             "handlers": ["file_errors"],
-#             "level": "ERROR",
-#             "propagate": False,
-#         },
-#         # Логгер для безопасности
-#         "django.security": {
-#             "handlers": ["file_security"],
-#             "level": "DEBUG",
-#             "propagate": False,
-#         },
-#     },
-# }
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {"format": "%(asctime)s - %(levelname)s - %(message)s"},
+        "file_general": {"format": "%(asctime)s - %(levelname)s - %(module)s - %(message)s"},
+        "file_errors": {
+            "format": "%(asctime)s - %(levelname)s - %(message)s - %(pathname)s",
+        },
+        "file_security": {
+            "format": "%(asctime)s - %(levelname)s - %(module)s - %(message)s",
+        },
+    },
+    "filters": {
+        "debug_only": {
+            "()": "django.utils.log.CallbackFilter",
+            "callback": lambda record: settings.DEBUG,
+        },
+        "production_only": {
+            "()": "django.utils.log.CallbackFilter",
+            "callback": lambda record: not settings.DEBUG,
+        },
+    },
+    "handlers": {
+        "file_general": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "logging/general.log"),
+            "formatter": "file_general",
+            "filters": ["production_only"],
+        },
+        "file_errors": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "logging/errors.log"),
+            "formatter": "file_errors",
+        },
+        "file_security": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "logging/security.log"),
+            "formatter": "file_security",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+            "formatter": "file_errors",
+            "filters": ["production_only"],
+        },
+    },
+    "loggers": {
+        # Основной логгер Django
+        "django": {
+            "handlers": ["file_general", "file_errors", "file_security"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        # Логгер для запросов
+        "django.request": {
+            "handlers": ["mail_admins", "file_errors"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Логгер для сервера
+        "django.server": {
+            "handlers": ["mail_admins", "file_errors"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Логгер для шаблонов
+        "django.template": {
+            "handlers": ["file_errors"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Логгер для базы данных
+        "django.db.backends": {
+            "handlers": ["file_errors"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # Логгер для безопасности
+        "django.security": {
+            "handlers": ["file_security"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
+}
+
