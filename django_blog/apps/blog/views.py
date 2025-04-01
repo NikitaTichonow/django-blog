@@ -135,16 +135,17 @@ class PostDeleteView(AuthorRequiredMixin, SuccessMessageMixin, DeleteView):
     """
     Представление: удаления материала на сайте
     """
-    
+
     model = Post
     template_name = "blog/post_confirm_delete.html"
-    context_object_name = 'post'
+    context_object_name = "post"
     success_message = "Запись успешно удалена"
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy("home")
 
     def get_queryset(self):
         # Ограничиваем доступ к удалению только автору поста
         return self.model.objects.filter(author=self.request.user)
+
 
 class PostFromCategory(ListView):
     template_name = "blog/post_list.html"

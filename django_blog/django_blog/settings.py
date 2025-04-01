@@ -19,6 +19,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -30,12 +31,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv('SECRET_KEY_ENV'))
+SECRET_KEY = str(os.getenv("SECRET_KEY_ENV"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 SITE_ID = 1
 
@@ -73,8 +74,8 @@ INSTALLED_APPS = [
     "rosetta",
 ]
 
-RECAPTCHA_PUBLIC_KEY = str(os.getenv('RECAPTCHA_PUBLIC_KEY_ENV'))
-RECAPTCHA_PRIVATE_KEY = str(os.getenv('RECAPTCHA_PRIVATE_KEY_ENV'))
+RECAPTCHA_PUBLIC_KEY = str(os.getenv("RECAPTCHA_PUBLIC_KEY_ENV"))
+RECAPTCHA_PRIVATE_KEY = str(os.getenv("RECAPTCHA_PRIVATE_KEY_ENV"))
 
 STATIC_ROOT = BASE_DIR / "static/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -82,14 +83,14 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     "default": {
         "toolbar": "full",  # Полная панель инструментов
-        "height": 300,      # Высота редактора
-        "width": "100%",     # Ширина редактора (можно установить в процентах)
+        "height": 300,  # Высота редактора
+        "width": "100%",  # Ширина редактора (можно установить в процентах)
         "removePlugins": "elementspath",  # Удалить панель элементов
         "extraPlugins": "autogrow",  # Дополнительные плагины
-        "autoGrow_minHeight": 300,    # Минимальная высота для автоподстройки
-        "autoGrow_maxHeight": 600,     # Максимальная высота для автоподстройки
-        "tabSpaces": 4,                # Количество пробелов для табуляции
-        "allowedContent": True,         # Разрешить весь контент (можно настроить под свои нужды)
+        "autoGrow_minHeight": 300,  # Минимальная высота для автоподстройки
+        "autoGrow_maxHeight": 600,  # Максимальная высота для автоподстройки
+        "tabSpaces": 4,  # Количество пробелов для табуляции
+        "allowedContent": True,  # Разрешить весь контент (можно настроить под свои нужды)
     },
 }
 
@@ -248,16 +249,16 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = str(os.getenv('EMAIL_HOST_ENV'))
+EMAIL_HOST = str(os.getenv("EMAIL_HOST_ENV"))
 EMAIL_PORT = 465
-EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER_ENV'))
-EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD_ENV'))
+EMAIL_HOST_USER = str(os.getenv("EMAIL_HOST_USER_ENV"))
+EMAIL_HOST_PASSWORD = str(os.getenv("EMAIL_HOST_PASSWORD_ENV"))
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = str(os.getenv('DEFAULT_FROM_EMAIL_ENV'))
-SERVER_EMAIL = str(os.getenv('SERVER_EMAIL_ENV'))
-ADMINS = str(os.getenv('ADMINS_ENV'))
-EMAIL_SUBJECT_PREFIX = str(os.getenv('EMAIL_SUBJECT_PREFIX_ENV'))
+DEFAULT_FROM_EMAIL = str(os.getenv("DEFAULT_FROM_EMAIL_ENV"))
+SERVER_EMAIL = str(os.getenv("SERVER_EMAIL_ENV"))
+ADMINS = str(os.getenv("ADMINS_ENV"))
+EMAIL_SUBJECT_PREFIX = str(os.getenv("EMAIL_SUBJECT_PREFIX_ENV"))
 
 
 LOGGING = {
@@ -349,4 +350,3 @@ LOGGING = {
         },
     },
 }
-
