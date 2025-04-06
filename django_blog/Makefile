@@ -11,8 +11,8 @@ PROJECT_NAME=django_blog
 # # Укажите имя вашего виртуального окружения
 # VENV_NAME=venv
 
-# Укажите команду для активации виртуального окружения
-ACTIVATE=  venv\Scripts\activate 
+# # Укажите команду для активации виртуального окружения
+# ACTIVATE=  venv\Scripts\activate 
 
 # Команды
 .PHONY: help run migrate makemigrations collectstatic shell test
@@ -25,6 +25,8 @@ help:  ## Показать доступные команды
 	@echo "  make collectstatic  - Собрать статические файлы"
 	@echo "  make shell          - Запустить оболочку Django"
 	@echo "  make test           - Запустить тесты"
+	@echo "  make black          - Запустить black(форматировщик кода на Python)"
+	@echo "  make dumpdata       - Запустить dumpdata(Выгрузка существующих данных в mysite_data.json)"
 
 run:  ## Запустить сервер разработки
 	python manage.py runserver
@@ -43,3 +45,12 @@ shell:  ## Запустить оболочку Django
 
 test:  ## Запустить тесты
 	python manage.py test
+
+black: ## 
+	black . --exclude=venv
+
+dumpdata: ## 
+	python -Xutf8 manage.py dumpdata --exclude contenttypes --indent=2 --output=mysite_data.json
+
+loaddata: ##
+	python -Xutf8 manage.py loaddata mysite_data.json
