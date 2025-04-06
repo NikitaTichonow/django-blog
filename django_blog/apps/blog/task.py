@@ -2,6 +2,7 @@ from celery import shared_task
 from .models import Post
 from django.utils import timezone
 
+
 @shared_task
 def publish_post(post_id):
     """
@@ -9,11 +10,12 @@ def publish_post(post_id):
     """
     try:
         post = Post.objects.get(id=post_id)
-        post.status = 'published'
+        post.status = "published"
         post.save()
         return f'Пост "{post.title}" опубликован.'
     except Post.DoesNotExist:
-        return f'Пост с ID {post_id} не найден.'
+        return f"Пост с ID {post_id} не найден."
+
 
 @shared_task
 def draft_post(post_id):
@@ -22,11 +24,12 @@ def draft_post(post_id):
     """
     try:
         post = Post.objects.get(id=post_id)
-        post.status = 'draft'
+        post.status = "draft"
         post.save()
         return f'Пост "{post.title}" переведен в черновик.'
     except Post.DoesNotExist:
-        return f'Пост с ID {post_id} не найден.'
+        return f"Пост с ID {post_id} не найден."
+
 
 @shared_task
 def update_post(post_id, title=None, description=None, text=None):
@@ -45,7 +48,8 @@ def update_post(post_id, title=None, description=None, text=None):
         post.save()
         return f'Пост "{post.title}" обновлен.'
     except Post.DoesNotExist:
-        return f'Пост с ID {post_id} не найден.'
+        return f"Пост с ID {post_id} не найден."
+
 
 @shared_task
 def delete_post(post_id):
@@ -57,4 +61,4 @@ def delete_post(post_id):
         post.delete()
         return f'Пост "{post.title}" удален.'
     except Post.DoesNotExist:
-        return f'Пост с ID {post_id} не найден.'
+        return f"Пост с ID {post_id} не найден."
