@@ -163,10 +163,25 @@ WSGI_APPLICATION = "django_blog.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#SQlite
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
+
+#PostgreSQL
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': str(os.getenv("NAME_POSTGRES")),
+        'USER': str(os.getenv("USER_POSTGRES")),
+        'PASSWORD': str(os.getenv("PASSWORD_POSTGRES")),
+        'HOST': str(os.getenv("HOST_POSTGRES")),
+        'PORT': str(os.getenv("PORT_POSTGRES")),
     }
 }
 
