@@ -27,6 +27,7 @@ help:  ## Показать доступные команды
 	@echo "  make test           - Запустить тесты"
 	@echo "  make black          - Запустить black(форматировщик кода на Python)"
 	@echo "  make dumpdata       - Запустить dumpdata(Выгрузка существующих данных в mysite_data.json)"
+	@echo "  make loaddata       - Запустить loaddata(Загрузка существующих данных из mysite_data.json)"
 
 run:  ## Запустить сервер разработки
 	python manage.py runserver

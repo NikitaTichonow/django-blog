@@ -72,6 +72,8 @@ INSTALLED_APPS = [
     "ckeditor",
     "guardian",
     "rosetta",
+    'django.contrib.postgres',
+    "markdownx",
 ]
 
 RECAPTCHA_PUBLIC_KEY = str(os.getenv("RECAPTCHA_PUBLIC_KEY_ENV"))

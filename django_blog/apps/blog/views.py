@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View, DeleteView
 from .models import Post, Category, Comment, Rating
-from .forms import PostCreateForm, PostUpdateForm
+from .forms import PostCreateForm, PostUpdateForm, SearchForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -11,6 +11,7 @@ from .forms import CommentCreateForm
 
 from django.shortcuts import render
 
+from django.contrib.postgres.search import SearchVector
 from taggit.models import Tag
 
 from ..services.mixins import AuthorRequiredMixin
@@ -59,6 +60,27 @@ def tr_handler403(request, exception):
             "error_message": "Доступ к этой странице ограничен",
         },
     )
+
+
+class PostSearchView(View):
+        def get(self, request):
+            form = SearchForm()
+            query = request.GET.get('query')
+            results = []
+
+            if query:
+                form = SearchForm(request.GET)
+                if form.is_valid():
+                    query = form.cleaned_data['query']
+                    results = Post.objects.annotate(
+                        search=SearchVector('title', 'description')
+                    ).filter(search=query)
+
+            return render(request, 
+                          'blog/post_search.html', 
+                          {'form': form, 
+                           'query': query, 
+                           'results': results})
 
 
 class PostListView(ListView):
