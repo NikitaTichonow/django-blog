@@ -63,24 +63,18 @@ def tr_handler403(request, exception):
 
 
 class PostSearchView(View):
-        def get(self, request):
-            form = SearchForm()
-            query = request.GET.get('query')
-            results = []
+    def get(self, request):
+        form = SearchForm()
+        query = request.GET.get("query")
+        results = []
 
-            if query:
-                form = SearchForm(request.GET)
-                if form.is_valid():
-                    query = form.cleaned_data['query']
-                    results = Post.objects.annotate(
-                        search=SearchVector('title', 'description')
-                    ).filter(search=query)
+        if query:
+            form = SearchForm(request.GET)
+            if form.is_valid():
+                query = form.cleaned_data["query"]
+                results = Post.objects.annotate(search=SearchVector("title", "description")).filter(search=query)
 
-            return render(request, 
-                          'blog/post_search.html', 
-                          {'form': form, 
-                           'query': query, 
-                           'results': results})
+        return render(request, "blog/post_search.html", {"form": form, "query": query, "results": results})
 
 
 class PostListView(ListView):

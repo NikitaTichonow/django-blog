@@ -72,7 +72,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "guardian",
     "rosetta",
-    'django.contrib.postgres',
+    "django.contrib.postgres",
     "markdownx",
 ]
 
@@ -165,7 +165,7 @@ WSGI_APPLICATION = "django_blog.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#SQlite
+# SQlite
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
@@ -174,16 +174,15 @@ WSGI_APPLICATION = "django_blog.wsgi.application"
 # }
 
 
-
-#PostgreSQL
+# PostgreSQL
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(os.getenv("NAME_POSTGRES")),
-        'USER': str(os.getenv("USER_POSTGRES")),
-        'PASSWORD': str(os.getenv("PASSWORD_POSTGRES")),
-        'HOST': str(os.getenv("HOST_POSTGRES")),
-        'PORT': str(os.getenv("PORT_POSTGRES")),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": str(os.getenv("NAME_POSTGRES")),
+        "USER": str(os.getenv("USER_POSTGRES")),
+        "PASSWORD": str(os.getenv("PASSWORD_POSTGRES")),
+        "HOST": str(os.getenv("HOST_POSTGRES")),
+        "PORT": str(os.getenv("PORT_POSTGRES")),
     }
 }
 
