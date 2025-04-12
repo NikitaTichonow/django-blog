@@ -13,10 +13,10 @@
           </a>
           <ul class="dropdown-menu text-small" style="/">
             <li><a class="dropdown-item" href="{% url 'post_create' %}">Добавить статью</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile_detail' request.user.profile.slug %}">{% trans "My profile" %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:profile_detail' request.user.profile.slug %}">{% trans "My profile" %}</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>
-                    <form action="{% url 'logout' %}" method="post">{% csrf_token %}
+                    <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}
                         <a href="#" class="dropdown-item" onclick="parentNode.submit();">{% trans "Log out" %}</a>
                     </form>
             </li>
@@ -24,8 +24,8 @@
         </div>
         {% else %}
             <ul class="nav ">
-              <li><a href="{% url 'register' %}" class="nav-link px-2 link-secondary">{% trans "Registration" %}</a></li>
-              <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark">{% trans "Login" %}</a></li>
+              <li><a href="{% url 'accounts:register' %}" class="nav-link px-2 link-secondary">{% trans "Registration" %}</a></li>
+              <li><a href="{% url 'accounts:login' %}" class="nav-link px-2 link-dark">{% trans "Login" %}</a></li>
             </ul>
         {% endif %}
 </div>

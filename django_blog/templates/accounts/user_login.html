@@ -6,7 +6,7 @@
             <div class="card-title nth-card-title">
                 <h4>Авторизация на сайте</h4>
             </div>
-            <form method="post" action="{% url 'login' %}">
+            <form method="post" action="{% url 'accounts:login' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="d-grid gap-2 d-md-block mt-2">
