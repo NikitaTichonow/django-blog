@@ -41,7 +41,32 @@
     ```Schema swagger-ui 
     http://127.0.0.1:8000/api/schema/swagger-ui/ 
 
-<p align="center">
+<h2 align="center">Запуск Redis, Celery, Flower</h2>
+
+1. **Запускаем Redis:**
+    ```bash
+    redis-server
+
+2. **Запускаем Celery worker:**
+    Приставка --pool=solo для пользователей windows
+    ```bash
+    celery -A django_blog worker -l info --pool=solo
+
+3. **Запускаем Celery beat для периодических задач:**
+    ```bash
+    celery -A django_blog beat -l info
+
+4. **Запускаем Flower:**
+    ```bash
+    celery -A django_blog beat -l info
+
+
+
+
+
+
+
+<!-- <p align="center">
   <img src="" width="350">
   <img src="" width="350">
-</p>
+</p> -->
