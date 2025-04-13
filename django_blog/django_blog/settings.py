@@ -264,6 +264,12 @@ CELERY_ACCEPT_CONTENT = ["application/json"]  # допустимый форма�
 CELERY_TASK_SERIALIZER = "json"  # метод сериализации задач.
 CELERY_RESULT_SERIALIZER = "json"  # метод сериализации результатов.
 
+# Настройки Flower
+FLOWER_BASIC_AUTH = ['admin:admin']  # Базовая аутентификация для доступа к Flower
+FLOWER_PORT = 5555  # Порт, на котором будет запущен Flower
+FLOWER_URL_PREFIX = 'flower'  # URL префикс для Flower
+FLOWER_PERSISTENT = True  # Сохранение состояния между перезапусками
+FLOWER_STATE_SAVE_INTERVAL = 3600000  # Интервал сохранения состояния (в миллисекундах)
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
