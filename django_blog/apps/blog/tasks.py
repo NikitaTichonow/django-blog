@@ -4,6 +4,8 @@ from django.core.mail import send_mail, send_mass_mail
 from django.contrib.auth import get_user_model
 from datetime import timedelta
 from .models import Post, Comment
+from django.db import connections
+from django.db.utils import OperationalError
 
 @shared_task
 def cleanup_old_posts():
@@ -98,3 +100,23 @@ def notify_users_about_new_posts():
         return f"Отправлено {len(emails)} уведомлений о {new_posts.count()} новых постах"
     
     return "Нет пользователей для уведомления"
+
+@shared_task
+def check_blog_status():
+    current_time = timezone.now()
+    print(f"Blog status checked at {current_time}")
+    # Add your task logic here
+    return "Blog status check completed"
+
+
+@shared_task
+def check_database_connection():
+    try:
+        db_conn = connections['default']
+        db_conn.cursor()
+        status = "Database connection successful"
+    except OperationalError:
+        status = "Database connection failed"
+    
+    print(f"[{timezone.now()}] Database check: {status}")
+    return status

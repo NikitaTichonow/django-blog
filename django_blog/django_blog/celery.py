@@ -26,4 +26,12 @@ app.conf.beat_schedule = {
         'task': 'apps.blog.tasks.notify_users_about_new_posts',
         'schedule': crontab(hour='*/6', minute=0),  # Каждые 6 часов
     },
+    'check-blog-status-every-minute': {
+        'task': 'apps.blog.tasks.check_blog_status',
+        'schedule': crontab(minute='*'),  # Каждую минуту
+    },
+    'check-database-connection': {
+        'task': 'apps.blog.tasks.check_database_connection',
+        'schedule': crontab(minute='*'),  # Каждую минуту
+    },
 }
