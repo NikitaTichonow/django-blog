@@ -2,6 +2,8 @@ from django.urls import path
 
 from .views import ProfileUpdateView, ProfileDetailView, UserRegisterView, UserLoginView, UserLogoutView
 
+app_name = 'accounts'
+
 urlpatterns = [
     path("user/edit/", ProfileUpdateView.as_view(), name="profile_edit"),
     path("user/<str:slug>/", ProfileDetailView.as_view(), name="profile_detail"),

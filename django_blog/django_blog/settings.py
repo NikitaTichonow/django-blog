@@ -285,6 +285,10 @@ SERVER_EMAIL = str(os.getenv("SERVER_EMAIL_ENV"))
 ADMINS = str(os.getenv("ADMINS_ENV"))
 EMAIL_SUBJECT_PREFIX = str(os.getenv("EMAIL_SUBJECT_PREFIX_ENV"))
 
+# В вашем settings.py
+ADMINS = [('NikitaTichonow', 'nik7674@yandex.ru')]
+
+
 
 LOGGING = {
     "version": 1,

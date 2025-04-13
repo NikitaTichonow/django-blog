@@ -31,11 +31,12 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("feeds/latest/", LatestPostFeed(), name="latest_post_feed"),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 urlpatterns += i18n_patterns(
     path("", include("apps.blog.urls")),
-    path("", include("apps.accounts.urls")),
+    path("", include("apps.accounts.urls", namespace='accounts')),
 )
 
 

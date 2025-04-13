@@ -24,7 +24,7 @@ help:  ## Показать доступные команды
 	@echo "  make makemigrations - Создать миграции"
 	@echo "  make collectstatic  - Собрать статические файлы"
 	@echo "  make shell          - Запустить оболочку Django"
-	@echo "  make test           - Запустить тесты"
+	@echo "  make test           - Запустить тесты pytest"
 	@echo "  make black          - Запустить black(форматировщик кода на Python)"
 	@echo "  make dumpdata       - Запустить dumpdata(Выгрузка существующих данных в mysite_data.json)"
 	@echo "  make loaddata       - Запустить loaddata(Загрузка существующих данных из mysite_data.json)"
@@ -44,8 +44,8 @@ collectstatic:  ## Собрать статические файлы
 shell:  ## Запустить оболочку Django
 	python manage.py shell
 
-test:  ## Запустить тесты
-	python manage.py test
+test:  ## Запустить тесты pytest
+	pytest
 
 black: ## 
 	black . --exclude=venv

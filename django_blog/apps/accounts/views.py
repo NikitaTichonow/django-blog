@@ -57,7 +57,7 @@ class ProfileUpdateView(UpdateView):
         return super(ProfileUpdateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("profile_detail", kwargs={"slug": self.object.slug})
+        return reverse_lazy("accounts:profile_detail", kwargs={"slug": self.object.slug})
 
 
 class UserRegisterView(SuccessMessageMixin, CreateView):

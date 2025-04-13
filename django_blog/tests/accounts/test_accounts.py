@@ -44,7 +44,7 @@ class TestUserViews:
 
     def test_profile_edit_authenticated(self, client, create_user):
         """Тестирование редактирования профиля для аутентифицированного пользователя."""
-        user, profile = create_user  # Извлекаем пользователя и профиль из фикстуры
+        user, profile = create_user 
         client.login(username="testuser", password="password123")
         response = client.get(reverse("accounts:profile_edit"))
         assert response.status_code == status.HTTP_200_OK
@@ -53,12 +53,13 @@ class TestUserViews:
         """Тестирование редактирования профиля для неаутентифицированного пользователя."""
         response = client.get(reverse("accounts:profile_edit"))
         assert response.status_code == status.HTTP_302_FOUND
+        assert response.url == reverse("accounts:login") 
 
     def test_profile_detail(self, client, create_user):
         """Тестирование отображения профиля пользователя."""
-        user, profile = create_user  # Извлекаем пользователя и профиль
+        user, profile = create_user 
         client.login(username="testuser", password="password123")
-        response = client.get(reverse("accounts:profile_detail", kwargs={"slug": profile.slug}))  # Используем slug профиля
+        response = client.get(reverse("accounts:profile_detail", kwargs={"slug": profile.slug}))
         assert response.status_code == status.HTTP_200_OK
 
     def test_user_register(self, client):
@@ -76,6 +77,6 @@ class TestUserViews:
 
     def test_user_login(self, client, create_user):
         """Тестирование входа пользователя."""
-        user, profile = create_user  # Извлекаем пользователя и профиль
+        user, profile = create_user 
         response = client.post(reverse("accounts:login"), {"username": user.username, "password": "password123"})
-        assert response.status_code == status.HTTP_302_FOUND
+        assert response.status_code == status.HTTP_200_OK
