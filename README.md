@@ -59,13 +59,6 @@
 4. **Запускаем Flower:**
     ```bash
     celery -A django_blog beat -l info
-
-
-
-
-
-
-
 <!-- <p align="center">
   <img src="" width="350">
   <img src="" width="350">
