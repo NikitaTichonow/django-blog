@@ -1,21 +1,8 @@
-# # Укажите имя вашего виртуального окружения
-# VENV_NAME=venv
-
-# Укажите имя вашего проекта
-PROJECT_NAME=django_blog
-
-# # Укажите команду для активации виртуального окружения
-# ACTIVATE= $(VENV_NAME)/bin/activate
-
-# # Команды
-# # Укажите имя вашего виртуального окружения
-# VENV_NAME=venv
-
-# # Укажите команду для активации виртуального окружения
-# ACTIVATE=  venv\Scripts\activate 
+VENV_PATH = ..\venv\Scripts\activate
+PROJECT_DIR = django_blog
 
 # Команды
-.PHONY: help run migrate makemigrations collectstatic shell test
+.PHONY: help run migrate makemigrations collectstatic shell test  celery celery-worker celery-beat celery-flower redis
 
 help:  ## Показать доступные команды
 	@echo "Доступные команды:"
@@ -55,3 +42,25 @@ dumpdata: ##
 
 loaddata: ##
 	python -Xutf8 manage.py loaddata mysite_data.json
+
+redis:
+	cmd /c "redis-server"
+
+celery-worker:
+	cmd /c "$(VENV_PATH) && celery -A django_blog worker -l info --pool=solo"
+
+celery-beat:
+	cmd /c "$(VENV_PATH) && celery -A django_blog beat -l info"
+
+celery-flower:
+	cmd /c "$(VENV_PATH) && celery -A django_blog flower"
+
+celery:
+	cmd /c "$(VENV_PATH) && start cmd /c redis-server"
+	timeout /t 5
+	cmd /c "$(VENV_PATH) && start cmd /c celery -A django_blog worker -l info --pool=solo"
+	timeout /t 2
+	cmd /c "$(VENV_PATH) && start cmd /c celery -A django_blog beat -l info"
+	timeout /t 2
+	cmd /c "$(VENV_PATH) && start cmd /c celery -A django_blog flower"
+
