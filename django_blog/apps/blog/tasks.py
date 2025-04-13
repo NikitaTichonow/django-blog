@@ -1,6 +1,6 @@
 from celery import shared_task
 from django.utils import timezone
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
 from django.contrib.auth import get_user_model
 from datetime import timedelta
 from .models import Post, Comment
@@ -57,3 +57,44 @@ def generate_activity_report():
     
     # Можно сохранить отчет в файл или отправить администратору
     return report
+
+@shared_task
+def notify_users_about_new_posts():
+    """Отправляет уведомления пользователям о новых постах за последние 24 часа."""
+    # Получаем посты за последние 24 часа
+    last_day = timezone.now() - timedelta(days=1)
+    new_posts = Post.objects.filter(created__gte=last_day, status='published')
+    
+    if not new_posts.exists():
+        return "Нет новых постов для уведомления"
+    
+    # Получаем всех активных пользователей
+    User = get_user_model()
+    users = User.objects.filter(is_active=True)
+    
+    # Формируем список писем
+    emails = []
+    for user in users:
+        if user.email:  # Проверяем наличие email
+            subject = 'Новые посты в блоге'
+            message = f'Здравствуйте, {user.username}!\n\nЗа последние 24 часа появились новые посты:\n\n'
+            
+            for post in new_posts:
+                message += f'- {post.title}\n'
+            
+            message += '\nПосетите наш сайт, чтобы прочитать их!'
+            
+            # Добавляем письмо в список
+            emails.append((
+                subject,
+                message,
+                'noreply@example.com',  # От кого
+                [user.email]  # Кому
+            ))
+    
+    # Отправляем все письма
+    if emails:
+        send_mass_mail(emails, fail_silently=False)
+        return f"Отправлено {len(emails)} уведомлений о {new_posts.count()} новых постах"
+    
+    return "Нет пользователей для уведомления"

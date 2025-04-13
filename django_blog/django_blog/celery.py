@@ -22,4 +22,8 @@ app.conf.beat_schedule = {
         'task': 'apps.blog.tasks.generate_activity_report',
         'schedule': crontab(hour=23, minute=59),  # Каждый день в 23:59
     },
+    'notify-users-about-new-posts': {
+        'task': 'apps.blog.tasks.notify_users_about_new_posts',
+        'schedule': crontab(hour='*/6', minute=0),  # Каждые 6 часов
+    },
 }
