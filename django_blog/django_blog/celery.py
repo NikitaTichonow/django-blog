@@ -1,14 +1,25 @@
-from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
+from celery.schedules import crontab
 
-# Установите переменную окружения для Django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_blog.settings")
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_blog.settings')
 
-app = Celery("django_blog")
-
-# Загрузите настройки из Django
-app.config_from_object("django.conf:settings", namespace="CELERY")
-
-# Автоматически найдите задачи в приложениях Django
+app = Celery('django_blog')
+app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
+
+# Настройка периодических задач
+app.conf.beat_schedule = {
+    'cleanup-old-posts': {
+        'task': 'apps.blog.tasks.cleanup_old_posts',
+        'schedule': crontab(hour=0, minute=0),  # Выполнять каждый день в полночь
+    },
+    'send-weekly-digest': {
+        'task': 'apps.blog.tasks.send_weekly_digest',
+        'schedule': crontab(hour=8, minute=0, day_of_week=1),  # Каждый понедельник в 8:00
+    },
+    'generate-activity-report': {
+        'task': 'apps.blog.tasks.generate_activity_report',
+        'schedule': crontab(hour=23, minute=59),  # Каждый день в 23:59
+    },
+}
