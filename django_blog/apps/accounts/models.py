@@ -21,6 +21,9 @@ class Profile(models.Model):
     )
     bio = models.TextField(max_length=500, blank=True, verbose_name="Информация о себе")
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
+    email_verification_code = models.CharField(max_length=6, blank=True, null=True, verbose_name="Код подтверждения email")
+    email_verified = models.BooleanField(default=False, verbose_name="Email подтвержден")
+    code_created_at = models.DateTimeField(null=True, blank=True, verbose_name="Время создания кода")
 
     def is_online(self):
         last_seen = cache.get(f"last-seen-{self.user.id}")
@@ -55,4 +58,4 @@ class Profile(models.Model):
         """
         Ссылка на профиль
         """
-        return reverse("profile_detail", kwargs={"slug": self.slug})
+        return reverse("accounts:profile_detail", kwargs={"slug": self.slug})

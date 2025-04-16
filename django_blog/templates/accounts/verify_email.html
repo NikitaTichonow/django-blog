@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block title %}Подтверждение Email{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">Подтверждение Email</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="verification_code">Введите код подтверждения:</label>
+                            <input type="text" class="form-control" id="verification_code" name="verification_code" required>
+                            <small class="form-text text-muted">Введите 6-значный код, отправленный на ваш email</small>
+                        </div>
+                        {% if error_message %}
+                        <div class="alert alert-danger mt-3">
+                            {{ error_message }}
+                        </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary mt-3">Подтвердить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

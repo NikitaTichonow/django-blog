@@ -1,8 +1,12 @@
-from django.views.generic import DetailView, UpdateView, CreateView
+from django.views.generic import DetailView, UpdateView, CreateView, View
 from django.db import transaction
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.utils import timezone
+from datetime import timedelta
 
 from .models import Profile
 from .forms import UserUpdateForm, ProfileUpdateForm, UserRegisterForm, UserLoginForm
@@ -66,9 +70,9 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
     """
 
     form_class = UserRegisterForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("accounts:verify_email")
     template_name = "accounts/user_register.html"
-    success_message = "Вы успешно зарегистрировались. Можете войти на сайт!"
+    success_message = "Вы успешно зарегистрировались. Пожалуйста, подтвердите ваш email."
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,3 +102,40 @@ class UserLogoutView(LogoutView):
     """
 
     next_page = "home"
+
+
+class VerifyEmailView(View):
+    """
+    Представление для подтверждения email
+    """
+    template_name = 'accounts/verify_email.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        code = request.POST.get('verification_code')
+        profile = request.user.profile
+
+        if not profile.email_verification_code or not profile.code_created_at:
+            messages.error(request, 'Код подтверждения не найден или устарел. Пожалуйста, запросите новый код.')
+            return render(request, self.template_name, {'error_message': 'Код подтверждения не найден'})
+
+        # Проверка срока действия кода (10 минут)
+        if timezone.now() - profile.code_created_at > timedelta(minutes=10):
+            profile.email_verification_code = None
+            profile.code_created_at = None
+            profile.save()
+            messages.error(request, 'Срок действия кода истек. Пожалуйста, запросите новый код.')
+            return render(request, self.template_name, {'error_message': 'Срок действия кода истек'})
+
+        if code == profile.email_verification_code:
+            profile.email_verified = True
+            profile.email_verification_code = None
+            profile.code_created_at = None
+            profile.save()
+            messages.success(request, 'Email успешно подтвержден!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Неверный код подтверждения')
+            return render(request, self.template_name, {'error_message': 'Неверный код подтверждения'})

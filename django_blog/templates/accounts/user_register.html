@@ -6,7 +6,7 @@
             <div class="card-title nth-card-title">
                 <h4>Регистрация на сайте</h4>
             </div>
-            <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+            <form method="post" action="{% url 'accounts:register' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-dark mt-2">Зарегистрироваться</button>
