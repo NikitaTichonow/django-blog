@@ -5,7 +5,7 @@ from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from apps.services.utils import unique_slugify
 from taggit.managers import TaggableManager
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.translation import gettext_lazy as _
 
 
@@ -79,8 +79,8 @@ class Post(models.Model):
 
     title = models.CharField(verbose_name="Название записи", max_length=255)
     slug = models.SlugField(verbose_name="URL", max_length=255, blank=True)
-    description = RichTextField(verbose_name="Краткое описание", max_length=500)
-    text = RichTextField(verbose_name="Полный текст записи", max_length=500)
+    description = CKEditor5Field(max_length=500, verbose_name=_('Краткое описание'), config_name='default')
+    text = CKEditor5Field(max_length=500, verbose_name=_('Полный текст записи'), config_name='default')
     category = TreeForeignKey("Category", on_delete=models.PROTECT, related_name="posts", verbose_name="Категория")
     thumbnail = models.ImageField(
         default="default.jpg",

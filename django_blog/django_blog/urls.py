@@ -31,7 +31,6 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("feeds/latest/", LatestPostFeed(), name="latest_post_feed"),
-    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 urlpatterns += i18n_patterns(
@@ -42,4 +41,4 @@ urlpatterns += i18n_patterns(
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]
+    urlpatterns += [path("__debug__/", include("debug_toolbar.urls", namespace='djdt'))]
