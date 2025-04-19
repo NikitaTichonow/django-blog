@@ -19,5 +19,3 @@ exclude = '''
   | dist
 )/
 '''
-
-# black . --exclude=venv
