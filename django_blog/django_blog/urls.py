@@ -29,7 +29,7 @@ urlpatterns = [
     path("api/", include("apps.django_blog_api.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("django-ckeditor-5/", include('django_ckeditor_5.urls')),
     path("feeds/latest/", LatestPostFeed(), name="latest_post_feed"),
 ]
 
