@@ -10,7 +10,7 @@
             <div class="col-md-10">
                 <div class="card-body">
                     <h6 class="card-title">
-                        <a href="{{ node.author.profile.get_absolute_url }}">{{ node.author }}</a>
+                        <a href="{% url 'accounts:profile_detail' slug=node.author.profile.slug %}">{{ node.author }}</a>
                     </h6>
                     <p class="card-text">
                         {{ node.content }}
