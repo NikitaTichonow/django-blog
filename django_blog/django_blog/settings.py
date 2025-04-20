@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "markdownx",
     "django_celery_beat",
     "django_celery_results",
+    "django_prometheus",
 ]
 
 RECAPTCHA_PUBLIC_KEY = str(os.getenv("RECAPTCHA_PUBLIC_KEY_ENV"))
@@ -116,6 +117,7 @@ SPECTACULAR_SETTINGS = {
 
 
 MIDDLEWARE = [
+    "django_prometheus.middleware.PrometheusBeforeMiddleware", # Prometheus с Django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -126,6 +128,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",  # Middleware django-debug-toolbar
     "apps.accounts.middleware.ActiveUserMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware", # Prometheus с Django
 ]
 
 ROOT_URLCONF = "django_blog.urls"

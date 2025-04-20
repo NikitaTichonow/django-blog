@@ -31,6 +31,7 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("django-ckeditor-5/", include('django_ckeditor_5.urls')),
     path("feeds/latest/", LatestPostFeed(), name="latest_post_feed"),
+    path('metrics/', include('django_prometheus.urls')),
 ]
 
 urlpatterns += i18n_patterns(
