@@ -24,7 +24,9 @@ SECRET_KEY = str(os.getenv("SECRET_KEY_ENV"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"] 
+USE_X_FORWARDED_HOST = False # Отключает использование заголовка X-Forwarded-Host
+FORCE_SCRIPT_NAME = None # Позволяет принудительно задать префикс URL для всего сайта
 
 SITE_ID = 1
 
@@ -106,6 +108,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
 }
+
+
+# Prometheus Settings
+PROMETHEUS_METRICS_EXPORT_PORT = 8001
+PROMETHEUS_METRICS_EXPORT_ADDRESS = ''
 
 
 SPECTACULAR_SETTINGS = {

@@ -43,6 +43,9 @@ dumpdata: ##
 loaddata: ##
 	python -Xutf8 manage.py loaddata mysite_data.json
 
+prometheus:
+	"C:\Program Files\Prometheus\prometheus.exe" --config.file="D:\project backend\django-blog\prometheus.yml"
+
 redis:
 	cmd /c "redis-server"
 
@@ -63,4 +66,5 @@ celery:
 	cmd /c "$(VENV_PATH) && start cmd /c celery -A django_blog beat -l info"
 	timeout /t 2
 	cmd /c "$(VENV_PATH) && start cmd /c celery -A django_blog flower"
+	cmd /c "$(VENV_PATH) && start cmd /c python manage.py runserver 8001 --noreload
 
