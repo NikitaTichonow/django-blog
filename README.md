@@ -8,7 +8,7 @@
 [![Celery](https://img.shields.io/badge/Celery-5.3.4-brightgreen)](https://docs.celeryq.dev/)
 [![Prometheus](https://img.shields.io/badge/Prometheus-2.45.0-orange)](https://prometheus.io/)
 [![Redis](https://img.shields.io/badge/Redis-7.2.3-red)](https://redis.io/)URL_ADDRESS
-[![Flower](URL_ADDRESS.shields.io/badge/Flower-2.0.0-blueviolet)](URL_ADDRESS.readthedocs.io/en/latest/)
+[![Flower](URL_ADDRESS.shields.io/badge/Flower-2.0.0-blueviolet)](URL_ADDRESS.readthedocs.io/)
 
 </div>
 
