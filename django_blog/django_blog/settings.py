@@ -5,6 +5,8 @@ import logging
 from pathlib import Path
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from dotenv import load_dotenv
 
@@ -302,6 +304,16 @@ EMAIL_SUBJECT_PREFIX = str(os.getenv("EMAIL_SUBJECT_PREFIX_ENV"))
 ADMINS = [('NikitaTichonow', 'nik7674@yandex.ru')]
 
 
+# Sentry для мониторинга ошибок в Django
+sentry_sdk.init(
+    dsn=str(os.getenv("SENTRY_SDK")),
+    integrations=[
+        DjangoIntegration(),
+    ],
+    traces_sample_rate=1.0,
+    send_default_pii=True,
+    environment="development",
+)
 
 LOGGING = {
     "version": 1,

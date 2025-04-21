@@ -1,6 +1,7 @@
 VENV_PATH = ..\venv\Scripts\activate
 PROJECT_DIR = django_blog
 
+PROMETHEUS_PATH = C:\Program Files\Prometheus\prometheus.exe
 # Команды
 .PHONY: help run migrate makemigrations collectstatic shell test  celery celery-worker celery-beat celery-flower redis
 
@@ -43,8 +44,8 @@ dumpdata: ##
 loaddata: ##
 	python -Xutf8 manage.py loaddata mysite_data.json
 
-prometheus:
-	"C:\Program Files\Prometheus\prometheus.exe" --config.file="D:\project backend\django-blog\prometheus.yml"
+prometheus:  ## Запустить Prometheus сервер
+	"$(PROMETHEUS_PATH)" --config.file="..\prometheus.yml"
 
 redis:
 	cmd /c "redis-server"
@@ -68,3 +69,5 @@ celery:
 	cmd /c "$(VENV_PATH) && start cmd /c celery -A django_blog flower"
 	cmd /c "$(VENV_PATH) && start cmd /c python manage.py runserver 8001 --noreload
 
+sentry-test:
+	python manage.py shell -c "raise Exception('Test Sentry Integration')"
