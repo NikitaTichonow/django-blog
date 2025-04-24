@@ -140,6 +140,17 @@ MIDDLEWARE = [
     "django_prometheus.middleware.PrometheusAfterMiddleware", # Prometheus с Django
 ]
 
+# Security Settings
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
 ROOT_URLCONF = "django_blog.urls"
 
 TEMPLATES = [
@@ -154,6 +165,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            'autoescape': True,
         },
     },
 ]

@@ -69,5 +69,8 @@ celery:
 	cmd /c "$(VENV_PATH) && start cmd /c celery -A django_blog flower"
 	cmd /c "$(VENV_PATH) && start cmd /c python manage.py runserver 8001 --noreload
 
-sentry-test:
+sentry-test: ## Тестирование подключения Sentry
 	python manage.py shell -c "raise Exception('Test Sentry Integration')"
+
+security-check: ## Проверка настроек безопасности
+	python manage.py check --deploy
