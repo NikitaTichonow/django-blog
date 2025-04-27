@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'Django Monitoring'
+    orgId: 1
+    folder: 'Django'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
