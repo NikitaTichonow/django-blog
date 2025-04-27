@@ -3,9 +3,9 @@ version: '3.8'
 services:
   web:
     build: .
-    command: gunicorn --chdir django_blog django_blog.wsgi:application --bind 0.0.0.0:8000
+    command: python django_blog/manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - ./django_blog:/app/django_blog
       - static_volume:/app/django_blog/static
       - media_volume:/app/django_blog/media
     expose:
@@ -14,6 +14,27 @@ services:
       - django_blog/.env
     depends_on:
       - db
+      - redis
+
+  celery:
+    build: .
+    command: celery -A django_blog.django_blog worker -l info
+    volumes:
+      - ./django_blog:/app/django_blog
+    env_file:
+      - django_blog/.env
+    depends_on:
+      - web
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
 
   db:
     image: postgres:13
@@ -34,7 +55,31 @@ services:
     depends_on:
       - web
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9091:9090
+  grafana:
+    build: ./grafana
+    ports:
+      - 3001:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+  prometheus_data:
+  grafana_data:
+  redis_data:
